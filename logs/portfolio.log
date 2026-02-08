@@ -984,3 +984,4 @@ INFO 2026-02-08 15:54:34,841 autoreload 42180 46924 C:\Users\Diwan\Desktop\Diwan
 INFO 2026-02-08 15:54:36,405 autoreload 35392 25372 Watching for file changes with StatReloader
 INFO 2026-02-08 15:55:08,588 autoreload 35392 25372 C:\Users\Diwan\Desktop\Diwan\Programming\Python\Internship\My portfolio\myportfolio\myportfolio\settings.py changed, reloading.
 INFO 2026-02-08 15:55:10,086 autoreload 45836 48076 Watching for file changes with StatReloader
+INFO 2026-02-08 17:13:53,447 autoreload 9068 29924 Watching for file changes with StatReloader
