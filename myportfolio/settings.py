@@ -141,7 +141,8 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'home' / 'static']
 
 # AWS S3 Configuration for Media Storage
-if not DEBUG:
+# Only use S3 if AWS credentials are provided
+if not DEBUG and os.getenv('AWS_STORAGE_BUCKET_NAME') and os.getenv('AWS_ACCESS_KEY_ID'):
     # S3 Configuration
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')
@@ -158,7 +159,7 @@ if not DEBUG:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 else:
-    # Development: Use local file storage
+    # Fall back to local file storage (development or if S3 not configured)
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
