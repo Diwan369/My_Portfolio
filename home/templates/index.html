@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Diwan Ghimire{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-container">
+            <div class="hero-content">
+                <p class="hero-greeting">Hello, I'm</p>
+                <h1 class="hero-title">Diwan Ghimire</h1>
+                <p class="hero-subtitle">And I'm an <span class="highlight">Aspirant AI Developer</span></p>
+                <p class="hero-description">
+                    Backend Development & AI enthusiast | Currently studying BCA at Ambition Guru | Python, Django, Data Analytics, AI & ML Passionate
+                </p>
+                
+                <!-- Social Icons -->
+                <div class="hero-socials">
+                    <a href="https://www.facebook.com/diwan.ghimire/" target="_blank" rel="noopener noreferrer" class="social-btn" title="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://x.com/diwan_ghim58304" target="_blank" rel="noopener noreferrer" class="social-btn" title="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="https://t.co/gwtUQFD2aV" target="_blank" rel="noopener noreferrer" class="social-btn" title="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="hero-buttons">
+                    <a href="https://t.co/gwtUQFD2aV" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Hire Me</a>
+                    <a href="{% url 'contact' %}" class="btn btn-secondary">Contact Me</a>
+                    <a href="{% url 'download_resume' %}" class="btn btn-secondary">Download Resume</a>
+                </div>
+            </div>
+
+            <div class="hero-image">
+                <div class="image-wrapper">
+                    <img src="{% static 'images/Diwan1.jpeg' %}" alt="Diwan Ghimire" class="profile-img">
+                    <div class="glow-effect"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

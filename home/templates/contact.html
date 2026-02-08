@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact - Diwan Ghimire{% endblock %}
+
+{% block content %}
+    <!-- Hero Banner -->
+    <header class="hero-banner">
+        <div class="hero-inner">
+            <h2>CONTACT ME</h2>
+        </div>
+    </header>
+
+    <!-- Main contact area with two horizontal slides: s1 (map+form) and s2 (location/contact/email) -->
+    <main class="contact-page">
+        <section class="contact-area container">
+            <div class="slides">
+                <!-- Slide 1: map + form -->
+                <div class="slide" id="s1">
+                    <div class="slide-inner">
+                        <div class="map-and-form">
+                            <div class="map-card">
+                                <iframe
+                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24156.252860247323!2d85.3239604!3d27.7172455!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1906b7b6bbbd%3A0x6b0f3b3f0f7b6f7a!2sKathmandu%2C%20Nepal!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus"
+                                    width="100%" height="100%" style="border:0; border-radius:12px;" allowfullscreen="" loading="lazy"></iframe>
+                            </div>
+
+                            <div class="form-card">
+                                {% if success %}
+                                    <div class="success-msg">Thanks - your message has been sent!</div>
+                                {% elif error %}
+                                    <div class="error-msg">{{ error }}</div>
+                                {% endif %}
+                                <form method="post" novalidate>
+                                    {% csrf_token %}
+                                    <div class="field-row">
+                                        <input type="text" name="name" placeholder="Your Name" required>
+                                        <input type="email" name="email" placeholder="E-mail Address*" required>
+                                    </div>
+                                    <input type="text" name="subject" placeholder="Subject">
+                                    <textarea name="message" rows="6" placeholder="Your message" required></textarea>
+                                    <button type="submit" class="btn btn-secondary">Send Message</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2: location, contact, email cards -->
+                <div class="slide" id="s2">
+                    <div class="slide-inner">
+                        <div class="contact-cards-vertical">
+                            <div class="card big">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <h4>Location</h4>
+                                <p>Kathmandu, Nepal</p>
+                            </div>
+                            <div class="card big">
+                                <i class="fas fa-phone"></i>
+                                <h4>Contact</h4>
+                                <p>+977 9866145754</p>
+                            </div>
+                            <div class="card big">
+                                <i class="fas fa-envelope"></i>
+                                <h4>Email Address</h4>
+                                <p>batukdiwan7@gmail.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="slides-controls">
+                <button class="slide-btn prev" aria-label="Previous slide">&#10094;</button>
+                <button class="slide-btn next" aria-label="Next slide">&#10095;</button>
+                <div class="slide-indicators" role="tablist" aria-label="Slide indicators">
+                    <button class="indicator active" data-index="0" aria-label="Slide 1" role="tab"></button>
+                    <button class="indicator" data-index="1" aria-label="Slide 2" role="tab"></button>
+                </div>
+            </div>
+
+        </section>
+    </main>
+{% endblock %}

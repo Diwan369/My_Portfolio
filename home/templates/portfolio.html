@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Portfolio - Diwan Ghimire{% endblock %}
+
+{% block content %}
+    <!-- Hero Section -->
+    <header class="hero-banner">
+        <div class="hero-inner">
+            <h2>MY PORTFOLIO</h2>
+        </div>
+    </header>
+
+    <!-- Portfolio Content -->
+    <main class="portfolio-page">
+        <section class="portfolio-section container">
+            <div class="portfolio-intro">
+                <h3>My Projects & Works</h3>
+                <p>Here are some of the projects I've worked on in AI, Data Analytics, and Backend Development.</p>
+            </div>
+
+            <!-- Portfolio Items Grid -->
+            <div class="portfolio-grid">
+                {% if projects %}
+                    {% for project in projects %}
+                    <div class="portfolio-item {% if project.featured %}featured{% endif %}">
+                        <div class="portfolio-image">
+                            {% if project.image %}
+                                <img src="{{ project.image.url }}" alt="{{ project.title }}">
+                            {% else %}
+                                <i class="fas fa-folder"></i>
+                            {% endif %}
+                        </div>
+                        <h4>{{ project.title }}</h4>
+                        <p class="project-tech">{{ project.technologies }}</p>
+                        <p>{{ project.description|truncatewords:30 }}</p>
+                        <div class="project-links">
+                            {% if project.github_url %}
+                                <a href="{{ project.github_url }}" target="_blank" rel="noopener noreferrer" class="btn-small">View Code</a>
+                            {% endif %}
+                            {% if project.live_url %}
+                                <a href="{{ project.live_url }}" target="_blank" rel="noopener noreferrer" class="btn-small">Live Demo</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="portfolio-empty">
+                        <i class="fas fa-inbox"></i>
+                        <h4>No Projects Yet</h4>
+                        <p>Projects will appear here once they are added to the database. Check back soon!</p>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+    </main>
+{% endblock %}
