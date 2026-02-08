@@ -136,9 +136,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'home' / 'static']
+
 # AWS S3 Configuration for Media Storage
 if not DEBUG:
-    # S3 Configuration for static and media files
+    # S3 Configuration
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
@@ -146,23 +150,16 @@ if not DEBUG:
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
     
-    # S3 static settings
+    # S3 static files storage
     STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-    STATIC_LOCATION = 'static'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
     
-    # S3 media settings
+    # S3 media storage (only for user uploads, not static files)
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
-    MEDIA_LOCATION = 'media'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 else:
     # Development: Use local file storage
-    STATIC_URL = '/static/'
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
-    STATICFILES_DIRS = [BASE_DIR / 'home' / 'static']
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
-    # Media files (User uploads)
     MEDIA_URL = '/media/'
     MEDIA_ROOT = BASE_DIR / 'media'
 
