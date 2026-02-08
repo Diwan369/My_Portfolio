@@ -139,11 +139,15 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'home' / 'static']
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# AWS S3 Configuration for Media Storage
-# Only use S3 if AWS credentials are provided
+# Media files (User uploads) - Use S3 if credentials available
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+# AWS S3 Configuration for Media Storage (user uploads only)
+# Only use S3 for media if AWS credentials are provided
 if not DEBUG and os.getenv('AWS_STORAGE_BUCKET_NAME') and os.getenv('AWS_ACCESS_KEY_ID'):
-    # S3 Configuration
     AWS_STORAGE_BUCKET_NAME = os.getenv('AWS_STORAGE_BUCKET_NAME')
     AWS_S3_REGION_NAME = os.getenv('AWS_S3_REGION_NAME', 'us-east-1')
     AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
@@ -151,18 +155,9 @@ if not DEBUG and os.getenv('AWS_STORAGE_BUCKET_NAME') and os.getenv('AWS_ACCESS_
     AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
     
-    # S3 static files storage
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
-    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
-    
-    # S3 media storage (only for user uploads, not static files)
+    # S3 for media/user uploads only
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/media/'
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-else:
-    # Fall back to local file storage (development or if S3 not configured)
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    MEDIA_URL = '/media/'
-    MEDIA_ROOT = BASE_DIR / 'media'
 
 # File upload settings
 DATA_UPLOAD_MAX_MEMORY_SIZE = 104857600  # 100MB
