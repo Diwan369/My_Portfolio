@@ -33,7 +33,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ilyg2s&4&t!j*lqq!-$pw57n+b
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 # Allow hosts from environment or defaults
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,diwanghimire-portfolio-baqe.onrender.com').split(',')
 
 # Security settings for production
 if not DEBUG:
@@ -45,7 +45,7 @@ if not DEBUG:
     SECURE_HSTS_PRELOAD = True
 
 # CSRF Trusted Origins for Render deployment
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', '').split(',') if os.getenv('CSRF_TRUSTED_ORIGINS') else []
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'https://diwanghimire-portfolio-baqe.onrender.com').split(',') if os.getenv('CSRF_TRUSTED_ORIGINS') else ['https://diwanghimire-portfolio-baqe.onrender.com']
 
 
 # Application definition
